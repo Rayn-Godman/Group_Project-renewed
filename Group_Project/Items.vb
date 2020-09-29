@@ -10,7 +10,6 @@ Public Class Items
     Private _IsReusable As Boolean
     Private _IsBiodigradable As Boolean
 
-
     'Declare all property methods for each of the instance variables
     Public Property ItemName As String
         Get
@@ -81,10 +80,34 @@ Public Class Items
                 If (IsReusable = True) Then
                     Return Display() & " / NB!!! Should be Reused/Donated to Avoid Dumbing"
                 Else
-                    Return Display() & " / NB!!! It is very Harmful to the Environment Dumbing Should be limited"
+                    Return Display() & " / NB!!! It is very Harmful to the Environment. Dumbing Should be limited"
                 End If
             Case Else
                 Return Nothing
         End Select
+    End Function
+
+    'Determine rating of eaach item bassed on if it is reusable AND/OR biodigradable
+    Public Overridable Function Rating() As String
+        Dim message As String
+        If _IsBiodigradable = True Then
+            If _IsReusable Then
+                message = "A"
+            Else
+                message = "B"
+            End If
+        Else
+            If Not _IsReusable Then
+                message = "C"
+            Else
+                message = "F"
+            End If
+
+        End If
+        Return message
+    End Function
+
+    Public Function ItemRating() As String
+        Return MyClass.Rating()
     End Function
 End Class
